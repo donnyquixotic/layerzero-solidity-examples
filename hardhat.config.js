@@ -178,5 +178,15 @@ module.exports = {
             chainId: 4002,
             accounts: accounts(),
         },
+        "telos": {
+            url: `https://mainnet.telos.net/evm`,
+            chainId: 40,
+            accounts: accounts(),
+        },
+        "telos-testnet": {
+            url: `https://testnet.telos.net/evm`,
+            chainId: 41,
+            accounts: accounts(),
+        },
     },
 }
