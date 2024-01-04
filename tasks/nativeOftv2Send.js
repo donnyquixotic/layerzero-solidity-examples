@@ -35,6 +35,7 @@ module.exports = async function (taskArgs, hre) {
     let fees = await localContractInstance.estimateSendFee(remoteChainId, toAddressBytes, qty, false, adapterParams)
     console.log(`fees[0] (wei): ${fees[0]} / (eth): ${ethers.utils.formatEther(fees[0])}`)
     console.log(owner.address, remoteChainId, toAddressBytes, qty, fees[0] )
+    const totalEtherRequired = fees[0].add(qty);
 
     let tx = await (
         await localContractInstance.sendFrom(
@@ -47,11 +48,11 @@ module.exports = async function (taskArgs, hre) {
                 zroPaymentAddress: ethers.constants.AddressZero,
                 adapterParams,
             },
-            { value: fees[0] }
+            { value: totalEtherRequired }
         )
     ).wait()
-    
+
     console.log(`✅ Message Sent [${hre.network.name}] sendTokens() to OFT @ LZ chainId[${remoteChainId}] token:[${toAddress}]`)
     console.log(` tx: ${tx.transactionHash}`)
     console.log(`* check your address [${owner.address}] on the destination chain, in the ERC20 transaction tab !"`)
-}
+  }

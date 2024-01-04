@@ -52,7 +52,7 @@ module.exports = {
     solidity: {
         compilers: [
             {
-                version: "0.8.4",
+                version: "0.7.6",
                 settings: {
                     optimizer: {
                         enabled: true,
@@ -61,7 +61,16 @@ module.exports = {
                 },
             },
             {
-                version: "0.7.6",
+                version: "0.8.0",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 200,
+                    },
+                },
+            },
+            {
+                version: "0.8.4",
                 settings: {
                     optimizer: {
                         enabled: true,
@@ -81,7 +90,6 @@ module.exports = {
         ],
     },
 
-    // solidity: "0.8.4",
     contractSizer: {
         alphaSort: false,
         runOnCompile: true,
@@ -99,6 +107,54 @@ module.exports = {
 
     mocha: {
         timeout: 100000000,
+    },
+
+    etherscan: {
+        // Your API key for Etherscan
+        // Obtain one at https://etherscan.io/
+        apiKey: {
+            goerli: process.env.ETHERSCAN_API_KEY,
+            "telos-testnet": "telos-testnet",
+            "fuji": "fuji"
+        },
+        customChains: [
+            {
+                network: 'telos-testnet',
+                chainId: 41,
+                urls: {
+                    apiURL: "https://testnet.telos.net/evm",
+                    browserURL: "https://teloscan.io",
+                },
+            },
+            {
+                network: 'bsc-testnet',
+                chainId: 97,
+                urls: {
+                    apiURL: "wss://bsc-testnet.publicnode.com",
+                },
+            },
+            {
+                network: "goerli",
+                chainId: 5,
+                  urls: {
+                    apiURL: "https://api-goerli.etherscan.io/api",
+                    browserURL: "https://goerli.etherscan.io"
+                  }
+            },
+            {
+                network: "fuji",
+                chainId: 43113,
+                urls: {
+                  apiURL: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+                  browserURL: "https://avalanche.testnet.routescan.io"
+                }
+              }
+        ],
+    },
+
+    sourcify: {
+        enabled: true,
+        browserUrl: "https://repo.sourcify.dev",
     },
 
     networks: {
